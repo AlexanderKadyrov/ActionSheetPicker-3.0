@@ -319,7 +319,7 @@ CG_INLINE BOOL isIPhone4() {
 #else
         if (self.actionSheet && [self.actionSheet isVisible])
 #endif
-        [_actionSheet dismissWithClickedButtonIndex:0 animated:YES];
+        [_actionSheet dismissWithClickedButtonIndex:0 animated:YES comletionHandler:self.blockCompletionHandler];
     else if (self.popOverController && self.popOverController.popoverVisible)
         [_popOverController dismissPopoverAnimated:YES];
     self.actionSheet = nil;
