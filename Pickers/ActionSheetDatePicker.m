@@ -235,6 +235,10 @@
     UIDatePicker *datePicker = (UIDatePicker *)sender;
     self.selectedDate = datePicker.date;
     self.countDownDuration = datePicker.countDownDuration;
+    
+    if (self.blockEventDatePicker) {
+        self.blockEventDatePicker(datePicker.date);
+    }
 }
 
 - (void)customButtonPressed:(id)sender {
