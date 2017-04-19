@@ -160,17 +160,8 @@
     CGRect datePickerFrame = CGRectMake(0, 40, self.viewSize.width, 216);
     _datePicker = [[UIDatePicker alloc] initWithFrame:datePickerFrame];
     _datePicker.datePickerMode = self.datePickerMode;
-    
-    [[RACObserve(self, maximumDate) ignore:nil] subscribeNext:^(id x) {
-        @strongify(self)
-        datePicker.maximumDate = x;
-    }];
-    
-    [[RACObserve(self, minimumDate) ignore:nil] subscribeNext:^(id x) {
-        @strongify(self)
-        datePicker.minimumDate = x;
-    }];
-    
+    _datePicker.maximumDate = self.maximumDate;
+    _datePicker.minimumDate = self.minimumDate;
     _datePicker.minuteInterval = self.minuteInterval;
     _datePicker.calendar = self.calendar;
     _datePicker.timeZone = self.timeZone;
