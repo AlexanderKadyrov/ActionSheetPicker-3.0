@@ -19,5 +19,4 @@ Pod::Spec.new do | s |
     s.public_header_files = 'ActionSheetPicker.h', 'Pickers/*.h'
     s.source_files = 'ActionSheetPicker.h', 'Pickers/*.{h,m}'
     s.framework = 'UIKit'
-    s.dependency 'ReactiveCocoa', '2.5'
 end

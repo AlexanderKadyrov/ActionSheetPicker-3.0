@@ -27,10 +27,10 @@
 
 
 #import "ActionSheetDatePicker.h"
-#import <ReactiveCocoa/ReactiveCocoa.h>
 #import <objc/message.h>
 
 @interface ActionSheetDatePicker()
+@property (nonatomic, strong) UIDatePicker *datePicker;
 @property (nonatomic, assign) UIDatePickerMode datePickerMode;
 @property (nonatomic, strong) NSDate *selectedDate;
 @end
@@ -156,11 +156,10 @@
 }
 
 - (UIView *)configuredPickerView {
-    @weakify(self)
     
     CGRect datePickerFrame = CGRectMake(0, 40, self.viewSize.width, 216);
-    UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:datePickerFrame];
-    datePicker.datePickerMode = self.datePickerMode;
+    _datePicker = [[UIDatePicker alloc] initWithFrame:datePickerFrame];
+    _datePicker.datePickerMode = self.datePickerMode;
     
     [[RACObserve(self, maximumDate) ignore:nil] subscribeNext:^(id x) {
         @strongify(self)
@@ -172,30 +171,30 @@
         datePicker.minimumDate = x;
     }];
     
-    datePicker.minuteInterval = self.minuteInterval;
-    datePicker.calendar = self.calendar;
-    datePicker.timeZone = self.timeZone;
-    datePicker.locale = self.locale;
+    _datePicker.minuteInterval = self.minuteInterval;
+    _datePicker.calendar = self.calendar;
+    _datePicker.timeZone = self.timeZone;
+    _datePicker.locale = self.locale;
     
     // if datepicker is set with a date in countDownMode then
     // 1h is added to the initial countdown
     if (self.datePickerMode == UIDatePickerModeCountDownTimer) {
-        datePicker.countDownDuration = self.countDownDuration;
+        _datePicker.countDownDuration = self.countDownDuration;
         // Due to a bug in UIDatePicker, countDownDuration needs to be set asynchronously
         // more info: http://stackoverflow.com/a/20204317/1161723
         dispatch_async(dispatch_get_main_queue(), ^{
-            datePicker.countDownDuration = self.countDownDuration;
+            _datePicker.countDownDuration = self.countDownDuration;
         });
     } else {
-        [datePicker setDate:self.selectedDate animated:NO];
+        [_datePicker setDate:self.selectedDate animated:NO];
     }
     
-    [datePicker addTarget:self action:@selector(eventForDatePicker:) forControlEvents:UIControlEventValueChanged];
+    [_datePicker addTarget:self action:@selector(eventForDatePicker:) forControlEvents:UIControlEventValueChanged];
     
     //need to keep a reference to the picker so we can clear the DataSource / Delegate when dismissing (not used in this picker, but just in case somebody uses this as a template for another picker)
-    self.pickerView = datePicker;
+    self.pickerView = _datePicker;
     
-    return datePicker;
+    return _datePicker;
 }
 
 - (void)notifyTarget:(id)target didSucceedWithAction:(SEL)action origin:(id)origin
@@ -248,8 +247,8 @@
     self.selectedDate = datePicker.date;
     self.countDownDuration = datePicker.countDownDuration;
     
-    if (self.blockEventDatePicker) {
-        self.blockEventDatePicker(datePicker.date);
+    if (self.blockEventScrollDatePicker) {
+        self.blockEventScrollDatePicker(datePicker.date);
     }
 }
 
@@ -283,6 +282,16 @@
             NSAssert(false, @"Unknown action type");
             break;
     }
+}
+
+- (void)setMinimumDate:(NSDate *)minimumDate {
+    _minimumDate = minimumDate;
+    _datePicker.minimumDate = minimumDate;
+}
+
+- (void)setMaximumDate:(NSDate *)maximumDate {
+    _maximumDate = maximumDate;
+    _datePicker.maximumDate = maximumDate;
 }
 
 @end

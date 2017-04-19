@@ -45,7 +45,7 @@ typedef void(^ActionDateCancelBlock)(ActionSheetDatePicker *picker);
 
 @property (nonatomic, assign) NSTimeInterval countDownDuration; // for UIDatePickerModeCountDownTimer, ignored otherwise. default is 0.0. limit is 23:59 (86,399 seconds). value being set is div 60 (drops remaining seconds).
 
-@property (nonatomic, copy) void (^blockEventDatePicker)(NSDate *date);
+@property (nonatomic, copy) void (^blockEventScrollDatePicker)(NSDate *date);
 
 @property (nonatomic, copy) ActionDateDoneBlock onActionSheetDone;
 @property (nonatomic, copy) ActionDateCancelBlock onActionSheetCancel;
