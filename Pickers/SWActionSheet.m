@@ -38,10 +38,10 @@ static const enum UIViewAnimationOptions options = UIViewAnimationOptionCurveEas
     UIView *_bgView;
 }
 
-- (void)dismissWithClickedButtonIndex:(int)i animated:(BOOL)animated
+- (void)dismissWithClickedButtonIndex:(int)i animated:(BOOL)animated comletionHandler:(void (^)())comletionHandler
 {
     CGPoint fadeOutToPoint = CGPointMake(view.center.x,
-            self.center.y + CGRectGetHeight(view.frame));
+                                         self.center.y + CGRectGetHeight(view.frame));
     // Window of app
     //UIWindow *appWindow = [UIApplication sharedApplication].windows.firstObject;
     // Actions
@@ -50,10 +50,13 @@ static const enum UIViewAnimationOptions options = UIViewAnimationOptionCurveEas
         self.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.0f];
     };
     void (^completion)(BOOL) = ^(BOOL finished) {
-    //    if (![appWindow isKeyWindow])
-    //        [appWindow makeKeyAndVisible];
+        //    if (![appWindow isKeyWindow])
+        //        [appWindow makeKeyAndVisible];
         [self destroyWindow];
         [self removeFromSuperview];
+        if (comletionHandler) {
+            comletionHandler();
+        }
     };
     // Do actions animated or not
     if (animated) {
@@ -63,6 +66,11 @@ static const enum UIViewAnimationOptions options = UIViewAnimationOptionCurveEas
         completion(YES);
     }
     self.presented = NO;
+}
+
+- (void)dismissWithClickedButtonIndex:(int)i animated:(BOOL)animated
+{
+    [self dismissWithClickedButtonIndex:i animated:animated comletionHandler:nil];
 }
 
 - (void)destroyWindow
