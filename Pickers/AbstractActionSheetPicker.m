@@ -242,7 +242,11 @@ CG_INLINE BOOL isIPhone4() {
     if (isIPhone4()) {
         masterView.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.0];
     }
-    self.toolbar = [self createPickerToolbarWithTitle:self.title];
+    
+    if ( ! self.toolbar) {
+        self.toolbar = [self createPickerToolbarWithTitle:self.title];
+    }
+    
     [masterView addSubview:self.toolbar];
 
     //ios7 picker draws a darkened alpha-only region on the first and last 8 pixels horizontally, but blurs the rest of its background.  To make the whole popup appear to be edge-to-edge, we have to add blurring to the remaining left and right edges.
