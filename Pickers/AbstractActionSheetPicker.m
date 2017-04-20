@@ -322,6 +322,16 @@ CG_INLINE BOOL isIPhone4() {
 
 }
 
++ (UIBarButtonItem *)itemDoneWithTitle:(NSString *)title color:(UIColor *)color {
+    UIButton *buttonDone = [[UIButton alloc] initWithFrame:CGRectZero];
+    [buttonDone setTitle:title forState:UIControlStateNormal];
+    [buttonDone.titleLabel setFont:[UIFont boldSystemFontOfSize:16]];
+    [buttonDone setTitleColor:color forState:UIControlStateNormal];
+    [buttonDone addTarget:self action:@selector(actionPickerDone:) forControlEvents:UIControlEventTouchUpInside];
+    [buttonDone sizeToFit];
+    return [[UIBarButtonItem alloc] initWithCustomView:buttonDone];
+}
+
 - (IBAction)actionPickerDone:(id)sender {
     [self notifyTarget:self.target didSucceedWithAction:self.successAction origin:[self storedOrigin]];
     [self dismissPicker];
