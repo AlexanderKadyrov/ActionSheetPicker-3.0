@@ -241,6 +241,12 @@ CG_INLINE BOOL isIPhone4() {
     
     CGFloat heightPicker = self.toolbarBottom ? originHeight+self.toolbarBottom.frame.size.height : originHeight;
     
+    if (self.toolbarBottom) {
+        CGRect frameToolbarBottom = self.toolbarBottom.frame;
+        frameToolbarBottom.origin.y = heightPicker-self.toolbarBottom.frame.size.height;
+        self.toolbarBottom.frame = frameToolbarBottom;
+    }
+    
     UIView *masterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewSize.width, heightPicker)];
 
     // to fix bug, appeared only on iPhone 4 Device: https://github.com/skywinder/ActionSheetPicker-3.0/issues/5
@@ -253,6 +259,10 @@ CG_INLINE BOOL isIPhone4() {
     }
     
     [masterView addSubview:self.toolbar];
+    
+    if (self.toolbarBottom) {
+        [masterView addSubview:self.toolbarBottom];
+    }
 
     //ios7 picker draws a darkened alpha-only region on the first and last 8 pixels horizontally, but blurs the rest of its background.  To make the whole popup appear to be edge-to-edge, we have to add blurring to the remaining left and right edges.
     if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
