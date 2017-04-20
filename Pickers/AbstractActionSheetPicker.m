@@ -322,7 +322,7 @@ CG_INLINE BOOL isIPhone4() {
 
 }
 
-+ (UIBarButtonItem *)itemDoneWithTitle:(NSString *)title color:(UIColor *)color {
+- (UIBarButtonItem *)itemDoneWithTitle:(NSString *)title color:(UIColor *)color {
     UIButton *buttonDone = [[UIButton alloc] initWithFrame:CGRectZero];
     [buttonDone setTitle:title forState:UIControlStateNormal];
     [buttonDone.titleLabel setFont:[UIFont boldSystemFontOfSize:16]];

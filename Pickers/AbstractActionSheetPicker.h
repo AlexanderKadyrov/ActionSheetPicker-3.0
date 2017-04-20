@@ -124,6 +124,6 @@ static NSString *const kActionTarget = @"buttonActionTarget";
 // Hide picker programmatically
 - (void)hidePickerWithCancelAction;
 
-+ (UIBarButtonItem *)itemDoneWithTitle:(NSString *)title color:(UIColor *)color;
+- (UIBarButtonItem *)itemDoneWithTitle:(NSString *)title color:(UIColor *)color;
 
 @end
