@@ -237,7 +237,9 @@ CG_INLINE BOOL isIPhone4() {
 
 - (void)showActionSheetPicker {
     
-    CGFloat heightPicker = self.toolbarBottom ? 260+44 : 260;
+    CGFloat originHeight = 260;
+    
+    CGFloat heightPicker = self.toolbarBottom ? originHeight+self.toolbarBottom.frame.size.height : originHeight;
     
     UIView *masterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewSize.width, heightPicker)];
 
