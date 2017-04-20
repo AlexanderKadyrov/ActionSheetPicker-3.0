@@ -65,6 +65,7 @@ static NSString *const kActionTarget = @"buttonActionTarget";
 @property(nonatomic, assign) NSInteger tag;
 @property(nonatomic, assign) int borderWidth;
 @property(nonatomic, strong) UIToolbar *toolbar;
+@property(nonatomic, strong) UIToolbar *toolbarBottom;
 @property(nonatomic, copy) NSString *title;
 @property(nonatomic, strong) UIView *pickerView;
 @property(nonatomic, readonly) CGSize viewSize;
