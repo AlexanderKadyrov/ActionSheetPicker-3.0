@@ -539,7 +539,7 @@ CG_INLINE BOOL isIPhone4() {
     }
     else {
         [toolBarItemLabel setTextColor:(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) ? [UIColor blackColor] : [UIColor whiteColor]];
-        //[toolBarItemLabel setFont:[UIFont boldSystemFontOfSize:16]];
+        [toolBarItemLabel setFont:[UIFont boldSystemFontOfSize:16]];
         toolBarItemLabel.text = aTitle;
 
         if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
