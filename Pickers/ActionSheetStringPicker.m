@@ -192,4 +192,9 @@
     return pickerView.frame.size.width - 30;
 }
 
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+    CGFloat originRowHeight = 44;
+    return (self.rowHeight <= originRowHeight) ? originRowHeight : self.rowHeight;
+}
+
 @end
